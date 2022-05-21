@@ -1,0 +1,21 @@
+@import '../../variables.scss';
+
+.more-btn {
+    background-color: $active-color;
+    border: none;
+    border-radius: 5px;
+    font-family: $main-font-family;
+    color:white;
+    font-size: $main-font-size;
+    font-weight: 600;
+    margin-top: 1.2rem;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+@media (max-width: 768px) {
+    .more-btn {
+        padding: 0.7rem 0;
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,53 @@
+@import '../../variables.scss'; 
+
+.main-filters {
+    display: flex;
+    grid-row-start: 2;
+    align-self: start;
+    width: 505px;
+
+    &__btn {
+        padding: 1rem;
+        font-size: $main-font-size;
+        color: $main-text-color;
+        font-weight: 600;
+        font-family: $main-font-family;
+        background-color: $elements-main-background;
+        border: 1px solid #DFE5EC;
+        box-sizing: border-box;
+        letter-spacing: 0.5px;
+        width: 100%;
+    }
+    &__btn:not(:last-child) {
+        border-right: none;
+    }
+
+    &__btn:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    &__btn:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    &__btn--active {
+        background-color: $active-color;
+        color: white
+    }
+
+}
+
+@media (max-width: 768px) {
+    .main-filters {
+        width: auto;
+
+        &__btn {
+            font-size: 7px;
+            white-space: nowrap;
+            width: auto;
+            text-align: center;
+        }
+    }
+}

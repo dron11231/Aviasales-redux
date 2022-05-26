@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createStore } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import reduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 import reducer from './reducer';
 import App from './components/app/app';
 import './index.scss';
 
-const store = createStore(reducer);
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+
+const store = createStore(reducer, composeEnhancers(applyMiddleware(reduxThunk)));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,9 +19,4 @@ root.render(
   </Provider>
 );
 
-const test = function () {
-  console.log(store.getState());
-};
-
-/* store.subscribe(test); */
 export { store };

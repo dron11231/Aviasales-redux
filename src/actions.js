@@ -31,4 +31,74 @@ const removeFilter = (filter) => {
   };
 };
 
-export { sorting, setFilter, removeFilter };
+const getSearchId = () => async (dispatch) => {
+  try {
+    let searchId = await fetch('https://aviasales-test-api.kata.academy/search');
+    searchId = await searchId.json();
+    searchId = searchId.searchId;
+    dispatch({
+      type: 'ADD_SEARCH_ID',
+      searchId: searchId,
+      loadingSearchId: false,
+    });
+  } catch (e) {
+    console.log('Не удалось получить id');
+  }
+};
+
+const getTickets = async (searchId) => {
+  try {
+    const response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`);
+    const responseJson = await response.json();
+    return responseJson;
+  } catch (e) {
+    console.log('oops');
+  }
+};
+
+const addTickets = (tickets) => {
+  return {
+    type: 'ADD_TICKETS',
+    tickets: tickets,
+  };
+};
+
+const setLoadingTicketsStatus = (status) => {
+  return {
+    type: 'SET_LOADING_TICKETS_STATUS',
+    loadingTickets: status,
+  };
+};
+
+const showMoreTickets = () => {
+  return {
+    type: 'SHOW_MORE_TICKETS',
+  };
+};
+
+const dispatchTickets = (searchId) => {
+  let stop = false;
+  return async function disp(dispatch) {
+    // eslint-disable-next-line for-direction
+    try {
+      if (stop === false) {
+        if (stop !== true) {
+          const response = await getTickets(searchId);
+          stop = response.stop;
+          dispatch(addTickets(response.tickets));
+        }
+      }
+    } catch (e) {
+      console.log('wow');
+      if (stop !== true) {
+        dispatchTickets(searchId)(dispatch);
+      }
+    } finally {
+      if (stop === true) {
+        dispatch(setLoadingTicketsStatus(false));
+      }
+    }
+  };
+};
+
+export { sorting, setFilter, removeFilter, dispatchTickets, getSearchId, setLoadingTicketsStatus, showMoreTickets };

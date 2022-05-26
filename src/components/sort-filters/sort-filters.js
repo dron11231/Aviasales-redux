@@ -30,7 +30,7 @@ class SortFilters extends React.Component {
           onClick={(e) => {
             sorting('CHEAPEST');
           }}
-          className={btn + ' ' + activeBtn}
+          className={btn}
         >
           САМЫЙ ДЕШЕВЫЙ
         </button>

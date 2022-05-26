@@ -37,6 +37,8 @@
     ],
     "rules": {
         "no-case-declarations":"off",
+        "no-debugger":"off",
+        "no-unsafe-finally":"off",
         "no-unused-vars": "off",
         "indent": "off",
         "prettier/prettier": "error",

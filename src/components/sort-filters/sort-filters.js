@@ -6,11 +6,11 @@ import * as actions from '../../actions';
 import classes from './sort-filters.module.scss';
 
 const [mainFilters, btn, activeBtn] = Object.values(classes);
+
 class SortFilters extends React.Component {
   componentDidMount() {
     const container = document.querySelector('.' + mainFilters);
     const btns = document.querySelectorAll('.' + btn);
-
     container.addEventListener('click', (e) => {
       const button = e.target;
       if (button.classList.contains(btn)) {

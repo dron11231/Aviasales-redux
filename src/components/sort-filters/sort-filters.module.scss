@@ -41,9 +41,11 @@
 
 @media (max-width: 768px) {
     .main-filters {
-        width: auto;
+        width: 100%;
+        justify-content: center;
 
         &__btn {
+            width: 100% !important;
             font-size: 7px;
             white-space: nowrap;
             width: auto;

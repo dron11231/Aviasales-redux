@@ -29,7 +29,7 @@ class TransferFilters extends React.Component {
   }
 
   render() {
-    const { setFilter, removeFilter } = this.props;
+    const { setFilter, removeFilter, filterTickets, sorting } = this.props;
     return (
       <div className={filters}>
         <h2 className={title}>КОЛИЧЕСТВО ПЕРЕСАДОК</h2>
@@ -44,6 +44,8 @@ class TransferFilters extends React.Component {
                 } else {
                   removeFilter('ALL');
                 }
+                filterTickets();
+                sorting(this.props.store.getState().sorting);
               }}
               className={checkbox}
             />
@@ -61,6 +63,8 @@ class TransferFilters extends React.Component {
                 } else {
                   removeFilter('NON_STOP');
                 }
+                filterTickets();
+                sorting(this.props.store.getState().sorting);
               }}
               className={checkbox}
             />
@@ -78,6 +82,8 @@ class TransferFilters extends React.Component {
                 } else {
                   removeFilter('ONE_TRANSFER');
                 }
+                filterTickets();
+                sorting(this.props.store.getState().sorting);
               }}
               className={checkbox}
             />
@@ -95,6 +101,8 @@ class TransferFilters extends React.Component {
                 } else {
                   removeFilter('TWO_TRANSFER');
                 }
+                filterTickets();
+                sorting(this.props.store.getState().sorting);
               }}
               className={checkbox}
             />
@@ -112,6 +120,8 @@ class TransferFilters extends React.Component {
                 } else {
                   removeFilter('THREE_TRANSFER');
                 }
+                filterTickets();
+                sorting(this.props.store.getState().sorting);
               }}
               className={checkbox}
             />

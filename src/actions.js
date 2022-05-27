@@ -5,6 +5,13 @@ const sorting = (sorting) => {
   };
 };
 
+const filterTickets = (all) => {
+  return {
+    type: 'FILTER_TICKETS',
+    all: all,
+  };
+};
+
 const setFilter = (filter) => {
   const filters = [];
   if (filter === 'ALL') {
@@ -42,7 +49,7 @@ const getSearchId = () => async (dispatch) => {
       loadingSearchId: false,
     });
   } catch (e) {
-    console.log('Не удалось получить id');
+    //
   }
 };
 
@@ -52,7 +59,7 @@ const getTickets = async (searchId) => {
     const responseJson = await response.json();
     return responseJson;
   } catch (e) {
-    console.log('oops');
+    //
   }
 };
 
@@ -89,7 +96,6 @@ const dispatchTickets = (searchId) => {
         }
       }
     } catch (e) {
-      console.log('wow');
       if (stop !== true) {
         dispatchTickets(searchId)(dispatch);
       }
@@ -101,4 +107,13 @@ const dispatchTickets = (searchId) => {
   };
 };
 
-export { sorting, setFilter, removeFilter, dispatchTickets, getSearchId, setLoadingTicketsStatus, showMoreTickets };
+export {
+  sorting,
+  setFilter,
+  filterTickets,
+  removeFilter,
+  dispatchTickets,
+  getSearchId,
+  setLoadingTicketsStatus,
+  showMoreTickets,
+};

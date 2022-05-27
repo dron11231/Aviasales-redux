@@ -1,17 +1,60 @@
 const initialState = {
-  sorting: 'CHEAPEST',
+  sorting: null,
   filters: [],
   tickets: [],
+  filteredTickets: [],
   searchId: null,
   loadingSearchId: true,
   loadingTickets: true,
   maxTicketsOnPage: 5,
 };
 
+const filtersHandler = (state, transfers) => {
+  let tickets = [];
+  state.tickets.forEach((el) => {
+    if (el.segments[0].stops.length === transfers && el.segments[1].stops.length === transfers) {
+      tickets.push(el);
+    }
+  });
+  return tickets;
+};
+
+const visibilityHandler = (state = {}) => {
+  let newArr = [];
+  if (state.filters.find((el) => el === 'ALL' || state.filters.length === 4)) {
+    newArr = [...state.tickets];
+    return newArr;
+  }
+  if (state.filters.find((el) => el === 'NON_STOP')) {
+    newArr = [...newArr, ...filtersHandler(state, 0)];
+  }
+
+  if (state.filters.find((el) => el === 'ONE_TRANSFER')) {
+    newArr = [...newArr, ...filtersHandler(state, 1)];
+  }
+
+  if (state.filters.find((el) => el === 'TWO_TRANSFER')) {
+    newArr = [...newArr, ...filtersHandler(state, 2)];
+  }
+
+  if (state.filters.find((el) => el === 'THREE_TRANSFER')) {
+    newArr = [...newArr, ...filtersHandler(state, 3)];
+  }
+
+  return newArr;
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'FILTER_TICKETS': {
+      const setArr = new Set([...visibilityHandler(state)]);
+      return Object.assign({}, state, {
+        filteredTickets: [...setArr],
+      });
+    }
+
     case 'SET_SORTING':
-      let newArr = [...state.tickets];
+      let newArr = [...state.filteredTickets];
       if (action.sorting === 'CHEAPEST') {
         newArr = newArr.sort(function (a, b) {
           return a.price - b.price;
@@ -33,7 +76,7 @@ const reducer = (state = initialState, action) => {
       }
       return Object.assign({}, state, {
         sorting: action.sorting,
-        tickets: newArr,
+        filteredTickets: newArr,
       });
     case 'SET_FILTER':
       const setArr = new Set([...state.filters, ...action.filters]);
